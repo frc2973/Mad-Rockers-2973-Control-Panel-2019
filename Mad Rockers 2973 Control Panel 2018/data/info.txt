@@ -1,0 +1,44 @@
+Compressor instructions (FOLLOW ALL AND IN ORDER):
+Disable compressor through autodata (Just to be sure, it is on by default).
+Connect tube.
+*** Open valve.
+Connect power.
+Enable compressor through autodata.
+Wait until finished compressing.
+Disable compressor through autodata.
+Disconnect power.
+*** Close valve.
+Disconnect tube.
+
+Controls:
+	Driver: 
+		***POV and ABXY are being used for other things, don't mess with em.
+		Drive: LS/RS Tank Drive
+		Grabber: LT Open, RT Close (Maybe we should switch to Xlose and Bpen)
+	Operator:
+		Winch: Y
+		Lift: LS
+		Arm: A Down (No downwards restriction), B Up
+
+Auto Data:
+UNUSED, UNUSED, AUTO PLAN, COMPRESSOR
+UNUSED (IGNORE CONTENTS):
+0- Driver: Winch A, Drive LS/RS Tank Drive; Operator: Grabber LT Close, RT Open, Lift LS, Arm RS
+1- Driver: Winch Y, Drive LS/RS Tank Drive; Operator: Grabber LT Close, RT Open, 
+2- Driver: Winch A, Drive LS/RS Tank Drive; Operator: 
+UNUSED:
+AUTO PLAN:
+0- Nothing
+1- Switch right corner camera track, place if the correct side
+2- Switch left corner camera track, place if the correct side
+COMPRESSOR:
+0- Disable
+1- Enable
+
+NEW AUTO:
+DB/Slider 0
+	0- Nothing
+	1- Left side switch place (start on left)
+	2- Right side switch place (start on right)
+	Ideas (NOT IMPLEMENTED):
+	cross line, go to scale, etc.

@@ -1,0 +1,4 @@
+GET /?action=stream HTTP/1.1
+Host: 10.29.73.113
+Accept-Encoding: *
+
