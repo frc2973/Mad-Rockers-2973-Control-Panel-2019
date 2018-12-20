@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{44EF31FD-3AE2-439E-8AB6-DC60CADC8F23}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>MadRockers2973ControlPanel2018</RootNamespace>
+    <RootNamespace>MadRockers2973ControlPanel2019</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -181,7 +181,7 @@
     <ClInclude Include="debugterminal.h" />
     <ClInclude Include="fieldmap.h" />
     <ClInclude Include="imagesearch.h" />
-    <ClInclude Include="MadRockers2973ControlPanel2018.h" />
+    <ClInclude Include="MadRockers2973ControlPanel2019.h" />
     <ClInclude Include="message.h" />
     <ClInclude Include="imagetracker.h" />
     <ClInclude Include="resource.h" />
@@ -237,7 +237,7 @@
     <ClCompile Include="..\..\..\..\..\..\Library\The Great Transfer\modules\xfeatures2d\src\surf.ocl.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Library\The Great Transfer\modules\xfeatures2d\src\vgg.cpp" />
     <ClCompile Include="..\..\..\..\..\..\Library\The Great Transfer\modules\xfeatures2d\src\xfeatures2d_init.cpp" />
-    <ClCompile Include="MadRockers2973ControlPanel2018.cpp" />
+    <ClCompile Include="MadRockers2973ControlPanel2019.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -246,10 +246,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MadRockers2973ControlPanel2018.rc" />
+    <ResourceCompile Include="MadRockers2973ControlPanel2019.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="MadRockers2973ControlPanel2018.ico" />
+    <Image Include="MadRockers2973ControlPanel2019.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

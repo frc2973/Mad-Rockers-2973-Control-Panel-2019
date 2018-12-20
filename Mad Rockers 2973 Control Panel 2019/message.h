@@ -2,8 +2,8 @@
 #define HEADERS_NETWORKING_MESSAGE_H_
 
 /*
-Mad Rockers Control 2018
-Developed by FIRST Team 2973 software team member Evan Krohn for 2018 competition year
+Mad Rockers Control 2019
+Developed by FIRST Team 2973 software team member Evan Krohn for 2019 competition year
 Networking protocol version (Underlying communications):
 */
 #define NETWORKING_PROTOCOL_VERSION 23

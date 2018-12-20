@@ -1,9 +1,7 @@
-Mad Rockers 2973 Control Panel 2018
-Made for the 2018 competition year.
+Mad Rockers 2973 Control Panel 2019
+Made for the 2019 competition year.
 Middle-click camera windows to show color map calibration. Again to save.
 Running server IO service.
-[CAMERA NETWORK raspberrypi.local:8080] Exception:
-resolve: No such host is known
 [CAMERA NETWORK raspberrypi.local:8080] Exception:
 resolve: No such host is known
 [CAMERA NETWORK raspberrypi.local:8080] Exception:

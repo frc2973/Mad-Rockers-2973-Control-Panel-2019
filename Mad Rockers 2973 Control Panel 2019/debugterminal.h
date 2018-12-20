@@ -106,7 +106,7 @@ public: //Most error checking in here
 		parent = _parent;
 		instance = _instance; 
 		additionalOutput = L"";
-		outputWindowContents = L"Mad Rockers 2973 Control Panel 2018\r\nMade for the 2018 competition year.\r\nMiddle-click camera windows to show color map calibration. Again to save.\r\n";
+		outputWindowContents = L"Mad Rockers 2973 Control Panel 2019\r\nMade for the 2019 competition year.\r\nMiddle-click camera windows to show color map calibration. Again to save.\r\n";
 		if (!makeClass())
 			return;
 		if (!makeWindow())
