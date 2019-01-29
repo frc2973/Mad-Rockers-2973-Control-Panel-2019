@@ -8,6 +8,7 @@
 #include "fieldmap.h"
 #include "battery.h"
 #include "autodata.h"
+#include "display.h"
 
 #define sizeofControlSpace 100
 
@@ -23,6 +24,7 @@ class ControlPanel : public ControlPanelCallback {
 	Camera networkCameraFront;//0
 	Battery battery;
 	AutoData autoData;
+	Display display1;
 	int autopilotEffectStage = 0;
 	bool hasAutoData = false;//always flash anyways no matter what it says
 public:
@@ -37,7 +39,10 @@ public:
 		InvalidateRect(parent, NULL, FALSE);
 	}
 	void setBattery(float volt) override {
-		battery.setBatteryPercentageVoltage( (volt-11.5f)/0.8f, volt);
+		battery.setBatteryPercentageVoltage( (volt-11.8f)/(13.0f-11.8f), volt);
+	}
+	void setDisplay1(int i1, int i2, int i3, int i4) override {
+		display1.setDisplay(i1, i2, i3, i4);
 	}
 	void serverStatusUpdated() override {
 		//hasAutoData = false;
@@ -130,6 +135,7 @@ public:
 		dt.initialize(parent, instance);
 		fm.initialize(parent, instance);
 		battery.initialize(parent, instance);
+		display1.initialize(parent, instance);
 		autoData.initialize(parent, instance, this);
 		string camera0set = cameraSettings.lookup("CAMERA0TYPE");
 		if (camera0set == "LOCAL") {
@@ -145,6 +151,13 @@ public:
 
 		hasAutoData = false;
 		InvalidateRect(parent,NULL,FALSE);
+
+		//Modifiable: set what to have opened by default
+		battery.show();
+		display1.show();
+		SetWindowPos(battery.getHWND(), NULL, 50, 75, 0, 0, SWP_NOSIZE);
+		SetWindowPos(display1.getHWND(), NULL, 50, 185, 0, 0, SWP_NOSIZE);
+		ShowWindow(parent, SW_MAXIMIZE);
 	}
 	void shutdown() {
 		if (!init)
@@ -157,6 +170,7 @@ public:
 		networkCameraFront.shutdown();
 		fm.shutdown();
 		battery.shutdown();
+		display1.shutdown();
 		autoData.shutdown();
 		dt.dump("data/debugterminaldump.txt");
 		dt.shutdown();
@@ -197,6 +211,9 @@ public:
 					break;
 				case IDM_BATTERY:
 					battery.show();
+					break;
+				case IDM_DISPLAY1:
+					display1.show();
 					break;
 				case IDM_AUTODATA:
 					autoData.show();

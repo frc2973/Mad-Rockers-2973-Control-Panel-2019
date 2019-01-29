@@ -12,6 +12,7 @@
 #include <thread>
 #include <vector>
 #include <ctime>
+#include <string>
 #include <chrono>
 
 #include <Windows.h>
@@ -86,6 +87,9 @@ class Server {
 	void handleMessage(MRCCommand& com) {
 		output->setNetInfo(1, 0);
 
+		//if (com.mrch.command==MRCCommand::MRCC_BATTERY)
+		//*output << (std::string("Test: ") + " " + std::to_string(com.mrcb.aData.T1.f1));
+
 		switch (com.mrch.command) {
 		case MRCCommand::MRCC_SOUND: {
 			if (com.mrcb.aData.T2.i1 == 1) {
@@ -152,7 +156,11 @@ class Server {
 		}break;
 		case MRCCommand::MRCC_BATTERY: {
 			if (parentcb)
-				parentcb->setBattery(com.mrcb.aData.T3.f1);
+				parentcb->setBattery(com.mrcb.aData.T1.f1);
+		}break;
+		case MRCCommand::MRCC_DISPLAY_1: {
+			if (parentcb)
+				parentcb->setDisplay1(com.mrcb.aData.T4.i1, com.mrcb.aData.T4.i2, com.mrcb.aData.T4.i3, com.mrcb.aData.T4.i4);
 		}break;
 		case MRCCommand::MRCC_SETAUTODATA: {
 			if (parentcb)

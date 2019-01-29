@@ -48,6 +48,7 @@ BEGIN
 		MENUITEM "&Field Map"			 IDM_FIELDMAP
 		MENUITEM "&Battery"				 IDM_BATTERY
 		MENUITEM "&Auto Data"			 IDM_AUTODATA
+		MENUITEM "&Display 1"			 IDM_DISPLAY1
 	END
     POPUP "&Help"
     BEGIN

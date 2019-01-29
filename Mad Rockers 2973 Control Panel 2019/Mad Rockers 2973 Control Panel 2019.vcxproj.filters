@@ -54,9 +54,6 @@
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MadRockers2973ControlPanel2018.h">
-      <Filter>Header Files\unfrequent winapi</Filter>
-    </ClInclude>
     <ClInclude Include="imagesearch.h">
       <Filter>Header Files\unfrequent</Filter>
     </ClInclude>
@@ -153,12 +150,15 @@
     <ClInclude Include="adjustVariableStatic.h">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
+    <ClInclude Include="MadRockers2973ControlPanel2019.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="display.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MadRockers2973ControlPanel2018.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\..\Library\The Great Transfer\modules\xfeatures2d\src\stardetector.cpp">
@@ -296,9 +296,12 @@
     <ClCompile Include="..\..\..\..\..\..\Library\The Great Transfer\modules\tracking\src\trackerStateEstimator.cpp">
       <Filter>Source Files\inc</Filter>
     </ClCompile>
+    <ClCompile Include="MadRockers2973ControlPanel2019.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MadRockers2973ControlPanel2018.rc">
+    <ResourceCompile Include="MadRockers2973ControlPanel2019.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -306,7 +309,7 @@
     <Image Include="small.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="MadRockers2973ControlPanel2018.ico">
+    <Image Include="MadRockers2973ControlPanel2019.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -12,10 +12,10 @@ Version notes:
 Appears to be bug-free. Fixed the issues relating with memory crashes on an ARM processor.
 Networking version:
 */
-#define NETWORKING_VERSION 23004
+#define NETWORKING_VERSION 23006
 /*
 Version notes:
-Appears to be bug-free. 
+Appears to be bug-free.
 */
 
 #include <cstdlib>
@@ -37,13 +37,14 @@ public:
 		MRCC_TRACK,// implemented T3 [camera code, 0=MF 1=KCF, x, y, w, h]
 		MRCC_SETAUTOPILOT, // implemented T2 [0=not autopilot 1=autopilot] client ignores this message. Server will set autopilot to true server-side on autonomous, no need to send this message then. During robot status changes, the server will automatically disable autopilot status server-side. This should be sent when using macros on teleop.
 		MRCC_TRACKRETURN,//implemented t4 [camid, 0=failed 1=success, not used, not used]
-		MRCC_BATTERY,//implemented t3 [float voltage, not used right now but maybe for clock?]
+		MRCC_BATTERY,//implemented t1 [float voltage, not used]
 		MRCC_AUTODATA,//implemented t4 [0=starting postition 1=auto plan, value, value, value]
 		MRCC_SETAUTODATA,//implemented T2 [0=no auto data, 1=autodata]
-		MRCC_SOUND //implemented T2 [0=omaweu]
+		MRCC_SOUND, //implemented T2 [0=omaweu]
+		MRCC_DISPLAY_1//implemented t4
 		//MRCC_DEBUG //implemented T5 Print message to console
 		//MRCC_STOREWAYPOINTS
-		
+
 	};
 	class MRCCommandBodyBase {
 	public:

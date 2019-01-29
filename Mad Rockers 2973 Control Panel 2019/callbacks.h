@@ -13,5 +13,6 @@ public :
 	virtual void showDebugConsole() = 0;
 	virtual void setBattery(float volt) = 0;
 	virtual void sendAutoData(int i1, int i2, int i3, int i4) = 0;
+	virtual void setDisplay1(int i1, int i2, int i3, int i4) = 0;
 	virtual void setAutoData(int status) = 0;
 };

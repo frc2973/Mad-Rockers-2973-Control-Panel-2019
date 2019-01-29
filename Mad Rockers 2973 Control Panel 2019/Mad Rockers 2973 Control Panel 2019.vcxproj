@@ -179,6 +179,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="datadecoder.h" />
     <ClInclude Include="debugterminal.h" />
+    <ClInclude Include="display.h" />
     <ClInclude Include="fieldmap.h" />
     <ClInclude Include="imagesearch.h" />
     <ClInclude Include="MadRockers2973ControlPanel2019.h" />

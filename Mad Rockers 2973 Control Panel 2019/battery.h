@@ -6,6 +6,9 @@
 #include <fstream>
 #include <locale>
 #include <codecvt>
+#include <ctime>
+#include <vector>
+#include <algorithm>
 
 //add class inheritence to tools
 
@@ -18,6 +21,7 @@ LRESULT CALLBACK Battery_WndProc(
 
 class Battery {
 	bool init = false;
+	int lt = -1;
 	HWND parent;
 	HINSTANCE instance;
 	HWND thisWindow;
@@ -65,9 +69,25 @@ class Battery {
 		InvalidateRect(thisWindow, NULL, FALSE);
 	}
 public:
+	vector<float> pcs;
+	HWND getHWND() {
+		return thisWindow;
+	}
 	void setBatteryPercentageVoltage( float _percentage, float _voltage) {
 		batteryPercentage = _percentage;
 		batteryVoltage = _voltage;
+
+		/*if (lt == -1 || time(0) - lt > 1) {
+			lt = time(0);
+			pcs.push_back(_percentage);
+		}*/
+
+		pcs.push_back(_percentage);
+
+		if (pcs.size() > 1000)
+			pcs.erase(pcs.begin(), pcs.begin()+500);
+
+
 		render();
 	}
 	void initialize(HWND _parent, HINSTANCE _instance) {
@@ -132,8 +152,51 @@ LRESULT CALLBACK Battery_WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 		FillRect(hdc, &rRect, lightGray);
 		rRect = { 10,10,genRect.right - 10,genRect.bottom - 10 };
 		FillRect(hdc, &rRect, red);
-		rRect = { 10,10+(int)((genRect.bottom - 20)*(1.0f-thisBattery->batteryPercentage)),genRect.right - 10,genRect.bottom - 10 };
-		FillRect(hdc, &rRect, green);
+
+		vector<float>& pcs = thisBattery->pcs;
+
+		vector<float> renderV(genRect.right-genRect.left-20,1000.0f);
+
+		
+		if (pcs.size() > 0) {
+			float w = float(renderV.size()) / pcs.size();
+
+			for (int i = 0; i < pcs.size(); i++) {
+				for (int i2 = 0; i2 < (w>=1.0f?int(w):1); i2++) {
+					if (i*w + i2 < renderV.size()) {
+						renderV[i*w + i2] = min(renderV[i*w+i2],pcs[i]);
+					}
+				}
+			}
+			for (int i = 0; i < renderV.size(); i++) {
+				if (renderV[i] == 1000.0f&&i != 0)
+					renderV[i] = renderV[i - 1];
+			}
+
+			vector<float> renderV2(renderV.size());
+
+			//First smooth pass
+			for (int i = 0; i < renderV.size()-1; i++) {
+				renderV2[i] = (renderV[i] + renderV[i + 1]) / 2.0f;
+			}
+			renderV2[renderV.size() - 1] = renderV[renderV.size() - 1];
+
+			//Second smooth pass
+			for (int i = 0; i < renderV2.size() - 1; i++) {
+				renderV[i] = (renderV2[i] + renderV2[i + 1]) / 2.0f;
+			}
+			renderV[renderV.size() - 1] = renderV2[renderV.size() - 1];
+
+			//Second smooth pass
+
+
+			for (int i = 0; i < renderV.size(); i++) {
+				rRect = { i + 10, int(genRect.top + 10 + (genRect.bottom - genRect.top - 20)*(1.0f - renderV[i])), i + 1 + 10, genRect.bottom - 10 };
+				FillRect(hdc, &rRect, green);
+			}
+		}
+
+
 
 		std::wstring str;
 		str = to_wstring(thisBattery->batteryVoltage)+L"v "+to_wstring(int((thisBattery->batteryPercentage)*100))+L"% ";

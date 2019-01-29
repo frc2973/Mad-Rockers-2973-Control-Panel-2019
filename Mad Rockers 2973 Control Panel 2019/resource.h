@@ -7,6 +7,7 @@
 #define IDM_FIELDMAP 2002
 #define IDM_BATTERY 2003
 #define IDM_AUTODATA 2004
+#define IDM_DISPLAY1 2005
 
 #define IDS_APP_TITLE			103
 
