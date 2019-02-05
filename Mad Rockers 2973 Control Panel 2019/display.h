@@ -10,6 +10,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "callbacks.h"
+
 //add class inheritence to tools
 
 //this file frequently changes year to year
@@ -25,6 +27,7 @@ class Display {
 	bool init = false;
 	HWND parent;
 	HINSTANCE instance;
+	ControlPanelCallback* cb;
 	HWND thisWindow;
 	WNDCLASSEX wc;
 	int i1 =-1, i2=-1, i3=-1, i4=-1;
@@ -74,9 +77,11 @@ public:
 		return thisWindow;
 	}
 	HBRUSH rocket1 = nullptr;
-	void initialize(HWND _parent, HINSTANCE _instance) {
+	void initialize(HWND _parent, HINSTANCE _instance, ControlPanelCallback* _cb) {
 		if (init)
 			return;
+
+		cb = _cb;
 
 		parent = _parent;
 		instance = _instance;
@@ -118,8 +123,10 @@ public:
 		init = false;
 		//Window close
 		DestroyWindow(thisWindow);
-		if (rocket1!=nullptr)
+		if (rocket1 != nullptr) {
 			DeleteObject(rocket1);
+			rocket1 = nullptr;
+		}
 
 	}
 	~Display() {
@@ -140,6 +147,7 @@ LRESULT CALLBACK Display_WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 		HBRUSH lightGray = CreateSolidBrush(RGB(100, 100, 100));
 		HBRUSH red = CreateSolidBrush(RGB(255, 0, 0));
 		HBRUSH green = CreateSolidBrush(RGB(0, 255, 0));
+		HBRUSH orange = CreateSolidBrush(RGB(255, 100, 0));
 		RECT genRect;
 		GetClientRect(hWnd, &genRect);
 		FillRect(hdc, &genRect, panelGray);
@@ -154,12 +162,24 @@ LRESULT CALLBACK Display_WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 		rRect = {genRect.left,genRect.top,genRect.right,genRect.bottom};
 		FillRect(hdc, &rRect, thisDisplay->rocket1);
 
+
+		if (thisDisplay->i3 > 0) {
+			std::wstring str3;
+			rRect = { 160,0,200,150 };
+			FillRect(hdc, &rRect, orange);
+			str3 = L"CONTACT";
+			TextOut(hdc, 12, 30, str3.c_str(), str3.size());
+		}
+
 		std::wstring str;
 		str = to_wstring(thisDisplay->i1)
 			+ L" " +to_wstring(thisDisplay->i2)
 			+ L" " +to_wstring(thisDisplay->i3)
 			+ L" " +to_wstring(thisDisplay->i4);
 		TextOut(hdc, 12, 12, str.c_str(), str.size());
+
+		
+
 
 		if (thisDisplay->i1!=-1) {
 			if (thisDisplay->i1 == 0)
@@ -173,6 +193,7 @@ LRESULT CALLBACK Display_WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 			FillRect(hdc, &rRect, green);
 		}
 
+		DeleteObject(orange);
 		DeleteObject(panelGray); DeleteObject(red); DeleteObject(green); DeleteObject(lightGray);
 		EndPaint(hWnd, &ps); }
 				   break;

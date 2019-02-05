@@ -870,7 +870,7 @@ LRESULT CALLBACK Camera_WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 				hTmp = (HFONT)SelectObject(hdc, hFont);
 				if (curCamera->cameraType == CAMERA_NETWORK) {
 					TextOut(hdc, (curCamera->windowLocation.right - curCamera->windowLocation.left) / 2, (curCamera->windowLocation.bottom - curCamera->windowLocation.top) - 20 - 20, tstr.c_str(), tstr.size());
-					wstring dws = L"CHECK FIREWALL. RIGHT-CLICK FOR CONNECTION INFO";
+					wstring dws = L"CHECK FIREWALL. DISABLE BITDEFENDER. RIGHT-CLICK FOR CONNECTION INFO";
 					TextOut(hdc, (curCamera->windowLocation.right - curCamera->windowLocation.left) / 2, (curCamera->windowLocation.bottom - curCamera->windowLocation.top) - 20, dws.c_str(), dws.size());
 				}
 				else {

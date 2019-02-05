@@ -162,6 +162,15 @@ class Server {
 			if (parentcb)
 				parentcb->setDisplay1(com.mrcb.aData.T4.i1, com.mrcb.aData.T4.i2, com.mrcb.aData.T4.i3, com.mrcb.aData.T4.i4);
 		}break;
+		case MRCCommand::MRCC_ERROR: {
+			if (parentcb) {
+				std::wstring str2 = L"";
+				if (com.mrcb.aData.T4.i2 > 0) {
+					str2 = L"SENSOR FAILURE: CODE " + std::to_wstring(com.mrcb.aData.T4.i2);
+					parentcb->setErrorString(str2, 5);
+				}
+			}
+		}break;
 		case MRCCommand::MRCC_SETAUTODATA: {
 			if (parentcb)
 				parentcb->setAutoData(com.mrcb.aData.T2.i1);

@@ -41,7 +41,8 @@ public:
 		MRCC_AUTODATA,//implemented t4 [0=starting postition 1=auto plan, value, value, value]
 		MRCC_SETAUTODATA,//implemented T2 [0=no auto data, 1=autodata]
 		MRCC_SOUND, //implemented T2 [0=omaweu]
-		MRCC_DISPLAY_1//implemented t4
+		MRCC_DISPLAY_1,//implemented t4
+		MRCC_ERROR//implemented T4 [,typically sensor error,,]
 		//MRCC_DEBUG //implemented T5 Print message to console
 		//MRCC_STOREWAYPOINTS
 

@@ -1,5 +1,10 @@
 #pragma once
 
+#include <string>
+#include <xstring>
+#include <Windows.h>
+#include <tchar.h>  
+
 class ControlPanelCallback {
 public :
 	virtual void serverStatusUpdated() = 0;
@@ -15,4 +20,5 @@ public :
 	virtual void sendAutoData(int i1, int i2, int i3, int i4) = 0;
 	virtual void setDisplay1(int i1, int i2, int i3, int i4) = 0;
 	virtual void setAutoData(int status) = 0;
+	virtual void setErrorString(std::wstring err, int priority) = 0;//Only update current if priority is above current, log everything
 };

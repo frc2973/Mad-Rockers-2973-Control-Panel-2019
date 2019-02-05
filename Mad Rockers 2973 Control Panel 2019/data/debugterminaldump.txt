@@ -2,11 +2,6 @@ Mad Rockers 2973 Control Panel 2019
 Made for the 2019 competition year.
 Middle-click camera windows to show color map calibration. Again to save.
 Running server IO service.
-Server accepted robot.
-Server status updated: Robot Connected (Unknown)
-Server status updated: Robot Connected (Disabled)
-[CAMERA NETWORK raspberrypi.local:8080] Connection status updated: CONNECTED
-Server status updated: Robot Connected (Teleop)
-Server status updated: Robot Connected (Disabled)
 Server ended.
+[CAMERA NETWORK raspberrypi.local:8080] Connection status updated: CONNECTED
 [CAMERA NETWORK raspberrypi.local:8080] Connection status updated: NOT CONNECTED

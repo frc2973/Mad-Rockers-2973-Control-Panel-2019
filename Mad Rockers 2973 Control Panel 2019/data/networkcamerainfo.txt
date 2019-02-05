@@ -1,0 +1,1 @@
+Long buffer time (connected, no frame to display)? Disable bitdefender

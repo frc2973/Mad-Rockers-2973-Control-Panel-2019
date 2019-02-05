@@ -26,6 +26,7 @@ class ControlPanel : public ControlPanelCallback {
 	AutoData autoData;
 	Display display1;
 	int autopilotEffectStage = 0;
+	int errorEffectStage = 1;
 	bool hasAutoData = false;//always flash anyways no matter what it says
 public:
 	bool getHasAutoData() {
@@ -72,11 +73,11 @@ public:
 		}
 	}
 	void setAutoPilot(bool status) override {
-		if (status)
+		/*if (status) THIS IS NOW DONE IN INIT
 			SetTimer(parent, PARENT_AUTOPILOT_TIMER, 500, NULL);
 		else
 			KillTimer(parent, PARENT_AUTOPILOT_TIMER);
-		InvalidateRect(parent, NULL, FALSE);
+		*/InvalidateRect(parent, NULL, FALSE);
 	}
 	void stopTracking(int camid) override {
 		if (networkCameraFront.getid() == camid)
@@ -135,7 +136,7 @@ public:
 		dt.initialize(parent, instance);
 		fm.initialize(parent, instance);
 		battery.initialize(parent, instance);
-		display1.initialize(parent, instance);
+		display1.initialize(parent, instance, this);
 		autoData.initialize(parent, instance, this);
 		string camera0set = cameraSettings.lookup("CAMERA0TYPE");
 		if (camera0set == "LOCAL") {
@@ -152,6 +153,8 @@ public:
 		hasAutoData = false;
 		InvalidateRect(parent,NULL,FALSE);
 
+		SetTimer(parent, PARENT_AUTOPILOT_TIMER, 500, NULL);
+
 		//Modifiable: set what to have opened by default
 		battery.show();
 		display1.show();
@@ -159,10 +162,22 @@ public:
 		SetWindowPos(display1.getHWND(), NULL, 50, 185, 0, 0, SWP_NOSIZE);
 		ShowWindow(parent, SW_MAXIMIZE);
 	}
+	wstring currentErrorWString = L"";
+	int priority = -1;
+	void setErrorString(wstring err, int _priority) {//Only update current if priority is above current, log everything
+		dt << L"Error posted: "+err;
+		if (_priority > priority) {
+			dt << L"Current error updated due to higher priority.";
+			priority = _priority;
+			currentErrorWString = err;
+		}
+	}
 	void shutdown() {
 		if (!init)
 			return;
 		init = false;
+
+		KillTimer(parent, PARENT_AUTOPILOT_TIMER);
 
 		server.cease();
 		networkCameraFront.cease();
@@ -184,7 +199,10 @@ public:
 				autopilotEffectStage++;
 				if (autopilotEffectStage == 2)//Maybe just use a boolean... but thinking about using more than 2 colors
 					autopilotEffectStage = 0;
-				InvalidateRect(hWnd, NULL, FALSE);
+				errorEffectStage++;
+				if (errorEffectStage == 2)
+					errorEffectStage = 0;
+				InvalidateRect(hWnd, NULL, FALSE);//TODO: JUST INVALIDATE BOTTOM OF SCREEN?
 				break;
 			case WM_DEVICECHANGE:
 			{
@@ -250,6 +268,18 @@ public:
 				GRADIENT_RECT gradientRect = { 0, 1 };
 				COLORREF rgbTop = RGB(100, 100, 100);
 				COLORREF rgbBottom = RGB(0, 0, 0);
+
+
+				if (currentErrorWString.size() > 0) {
+					if (errorEffectStage == 1) {
+						rgbTop = RGB(255, 0, 0);
+					}
+					else {
+
+					}
+				}
+
+
 				TRIVERTEX triVertext[2] = {
 					rec.left - 1,
 					rec.top - 1,
@@ -356,6 +386,19 @@ public:
 					else
 						SetTextColor(hdcMem2, RGB(255, 0, 0, ));
 					TextOut(hdcMem2, panel.right/2, panel.top + 2, str.c_str(), str.size());
+					DeleteObject(SelectObject(hdcMem2, hTmp));
+				}
+
+				if (currentErrorWString.size() > 0) {
+					hFont = CreateFont(40, 0, 0, 0, FW_BOLD, 0, 0, 0, 0, 0, 0, 2, 0, L"SYSTEM_FIXED_FONT");
+					hTmp = (HFONT)SelectObject(hdcMem2, hFont);
+					str = currentErrorWString;
+					SetTextAlign(hdcMem2, TA_CENTER);
+					if (errorEffectStage == 0)
+						SetTextColor(hdcMem2, RGB(255, 255, 255));
+					else
+						SetTextColor(hdcMem2, RGB(255, 0, 0, ));
+					TextOut(hdcMem2, panel.right / 2, panel.top + 2 + 40 + 2, str.c_str(), str.size());
 					DeleteObject(SelectObject(hdcMem2, hTmp));
 				}
 
